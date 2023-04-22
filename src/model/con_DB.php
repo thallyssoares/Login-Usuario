@@ -5,7 +5,7 @@ class Conexao_DB{
     private $email;
     private $senha;
 
-    private function __construct($n,$s){
+    public function __construct($n,$s){
         $this->nome = $n;
         $this->senha = $s;
     }
@@ -23,9 +23,9 @@ class Conexao_DB{
                 if($this->senha == $resultado["senha"]){
                     session_start();
 
-                    $SESSION["name"] = $resultado["nome"];
-                    $SESSION["id"] = $resultado["id"];
-                    $SESSION["logado"] = true;
+                    $_SESSION["name"] = $resultado["nome"];
+                    $_SESSION["id"] = $resultado["id"];
+                    $_SESSION["logado"] = true;
 
                     header("location:../../index.php");
                 }
@@ -48,21 +48,14 @@ class Conexao_DB{
         try {
             $this->email = $e;
             $pdo = new PDO("mysql:dbname=loginuser;host=localhost", "root", "");
-            $validacao = $pdo->prepare("SELECT * FROM usuario WHERE nome=:n");
-            $validacao->bindValue(":n", $this->nome);
-            $retorno = $validacao->execute();
+            $res = $pdo->prepare("INSERT INTO usuario(nome, email, senha) VALUES (:n, :e, :s)");
+            $res->bindValue(":n", $this->nome);
+            $res->bindValue(":e", $this->email);
+            $res->bindValue(":s", $this->senha);
+            $res->execute();
 
-            if($retorno){
-                echo "<p>O usuario que você tentou cadastrar já existe.</p>";
-            } else{
-                $res = $pdo->prepare("INSERT INTO usuario(nome, email, senha) VALUES (:n, :e, :s)");
-                $res->bindValue(":n", $this->nome);
-                $res->bindValue(":e", $this->email);
-                $res->bindValue(":s", $this->senha);
-                $res->execute();
-
-                echo "<p>Cadastro feito com sucesso. Volte a página de login pra entrar na conta.</p>";
-            }
+            echo "<p>Cadastro feito com sucesso. Volte a página de login pra entrar na conta.</p>";
+            
             
         } catch (PDOException $e) {
             echo "<p>Houve um erro ao conectar com o Banco de Dados, esse foi o erro gerado: </p>" . $e->getMessage();
