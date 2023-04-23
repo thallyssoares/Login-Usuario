@@ -1,5 +1,5 @@
 <?php 
-    require_once "../model/con_DB.php";
+    require_once "../controller/validacao.php";
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +28,8 @@
         </form>
         <?php 
             if(!empty($_POST["nome"]) && !empty($_POST["email"]) && !empty($_POST["senha"])){
-                $db = new Conexao_DB($_POST["nome"], $_POST["senha"]);
-                $db->Cadastrar($_POST["email"]);
+                $db = new Validar();
+                $db->validar_Cad($_POST["nome"], $_POST["email"], $_POST["senha"]);
             }
         ?>
     </main>

@@ -36,11 +36,8 @@ class Conexao_DB{
 
         } catch (PDOException $e) {
     
-            echo "<p>Houve um erro ao conectar com o Banco de Dados, esse foi o erro gerado: </p>" . $e->getMessage();
-        } catch (Exception $e){
-            echo "<p>Houve um erro, esse foi o erro gerado: </p>". $e->getMessage();
+            echo "<p>Houve um erro ao logar. Tente Novamente.</p>";
         }
-        
 
     }
     
@@ -58,9 +55,10 @@ class Conexao_DB{
             
             
         } catch (PDOException $e) {
-            echo "<p>Houve um erro ao conectar com o Banco de Dados, esse foi o erro gerado: </p>" . $e->getMessage();
-        } catch (Exception $e){
-            echo "<p>Houve um erro, esse foi o erro gerado: </p>" . $e->getMessage();
+            
+            echo "<p>Houve um erro ao se cadastrar. Tente Novamente.</p>";
+            
+            
         }
     }
     

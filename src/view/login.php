@@ -1,5 +1,5 @@
 <?php 
-    require_once "../model/con_DB.php";
+    require_once "../controller/validacao.php";
 
 ?>
 
@@ -22,12 +22,12 @@
             <input type="password" name="senha" id="idSenha">
 
             <input type="submit" value="Entrar"> 
-            <button><a href="cad.php"></a>Criar Conta</button>
+            <button><a href="cad.php">Criar Conta</a></button>
         </form>
         <?php 
             if(!empty($_POST["nome"]) && !empty($_POST["senha"])){
-                $l = new Conexao_DB($_POST["nome"], $_POST["senha"]);
-                $l->Login();
+                $l = new Validar();
+                $l->validar_Login($_POST["nome"], $_POST["senha"]);
             } else {
                 echo "<p>Preencha todos os campos</p>";
             }
