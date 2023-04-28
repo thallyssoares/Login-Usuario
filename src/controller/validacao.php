@@ -1,5 +1,5 @@
 <?php
-    require_once("../model/con_DB.php");
+    require_once("../model/con_DB_Usuario.php");
 
     class Validar{
         private $user;
@@ -16,8 +16,8 @@
 
                 echo "<p>Dados digitados estão incorretos. <strong>Tente Novamente</strong>.</p>"; 
             } else {
-                $cad = new Conexao_DB($this->user, $this->senha);
-                $cad->Cadastrar($this->email);
+                $cad = new Conexao_DB_Usuario();
+                $cad->Cadastrar($this->user,$this->email,$this->senha);
             }
 
         }
@@ -35,8 +35,8 @@
             if($arrayResult == false){
                 echo "<p>Usuario não encontrado. <strong>Tente Novamente</strong>.</p>";
             } else {
-                $l = new Conexao_DB($this->user, $this->senha);
-                $l->Login();
+                $l = new Conexao_DB_Usuario();
+                $l->Login($this->user, $this->senha);
             }
         }
     }
