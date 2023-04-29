@@ -4,7 +4,7 @@ class Conexao_DB_Usuario{
     private $nome;
     private $email;
     private $senha;
-    private $pdo;
+    protected $pdo;
 
     public function __construct(){
         try {
