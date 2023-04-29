@@ -1,5 +1,7 @@
 <?php 
     require_once "src/model/con_DB_Cliente.php";
+    require_once "src/controller/cad_Cliente.php";
+    $db = new Conexao_DB_Cliente();
     session_start();
     if(!$_SESSION["logado"]){
         header("location:src/view/login.php");
@@ -32,16 +34,16 @@
                 <input type="text" name="tel" id="idTel"><br>
 
                 <input type="submit" value="Cadastrar">
-            </form>;
+            </form>
             <?php 
                 if(!empty($_POST["nome"])){
-                    $db = new Conexao_DB_Cliente();
                     $db->cad_Cliente($_POST["nome"], $_POST["email"], $_POST["tel"], $_SESSION["id"]);
                 }
-            
+                $l = new Cad_Cliente;
             ?>
         </div>
         <div class="mostCliente">
+            <h2>Meus Clientes</h2>
                 <?php 
                     $db->most_Cliente($_SESSION["id"]);
                 ?>

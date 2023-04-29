@@ -5,11 +5,15 @@ class Conexao_DB_Cliente{
     private $cNome;
     private $cEmail;
     private $cTel;
-    private $pdo;
+    public $pdo;
     private $uId; 
 
     public function __construct(){
         $this->pdo = new PDO("mysql:dbname=loginuser;host=localhost", "root", "");
+    }
+
+    public function get_PDO(){
+        return $this->pdo;
     }
     public function cad_Cliente($n, $e, $t, $id){
         $this->cNome = $n;
