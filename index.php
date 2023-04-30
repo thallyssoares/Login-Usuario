@@ -1,8 +1,7 @@
 <?php 
-    require_once "src/model/con_DB_Cliente.php";
+    require_once "src/controller/cliente/most_Cliente.php";
     require_once "src/controller/cliente/cad_Cliente.php";
 
-    $db = new Conexao_DB_Cliente();
     session_start();
     if(!$_SESSION["logado"]){
         header("location:src/view/login.php");
@@ -47,7 +46,8 @@
         <div class="mostCliente">
             <h2>Meus Clientes</h2>
                 <?php 
-                    $db->most_Cliente($_SESSION["id"]);
+                    $most = new Most_Cliente;
+                    $most->mostrar($_SESSION["id"]);
                 ?>
         </div>
     </main>
