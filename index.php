@@ -1,6 +1,7 @@
 <?php 
     require_once "src/controller/cliente/most_Cliente.php";
     require_once "src/controller/cliente/cad_Cliente.php";
+    require_once "src/controller/cliente/apagar_Cliente.php";
 
     session_start();
     if(!$_SESSION["logado"]){
@@ -48,6 +49,12 @@
                 <?php 
                     $most = new Most_Cliente;
                     $most->mostrar($_SESSION["id"]);
+                    if(isset($_GET["id"])){
+                        $apagar = new Apagar_Cliente;
+                        $apagar->apagar($_GET["id"]);
+                        header("location: index.php");
+                    }
+
                 ?>
         </div>
     </main>

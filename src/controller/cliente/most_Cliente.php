@@ -24,28 +24,33 @@ require_once "src/model/con_DB_Cliente.php";
             <th>Email</th>
             <th colspan="2">Telefone</th>
             </tr>';
-            echo "<tr>";
-            echo "<td>";
-            foreach($resultado as $res){
-                echo $res["nome"]."<br>";
+
+            if(count($resultado)>0){
+                echo "<tr>";
+                echo "<td>";
+                foreach($resultado as $res){
+                    echo $res["nome"]."<br>";
+                }
+                echo "</td>";
+                echo "<td>";
+                foreach($resultado as $res){
+                    echo $res["email"]."<br>";
+                }
+                echo "</td>";
+                echo '<td colspan="4">';
+                foreach($resultado as $res){
+                    echo $res["telefone"]."<br>";
+                }
+                echo "</td>";
+                echo "<td>";
+                foreach($resultado as $res){
+                    echo '<a href="index.php?id='.$res["id"].'">Editar</a>'." ".'<a href="index.php?id='.$res["id"].'">Apagar</a>'."<br>";
+                }
+                echo "</td>";
+                echo "</tr>";
+            } else {
+                echo "<p>Você ainda não possui nenhum usuario cadastrado.</p>";
             }
-            echo "</td>";
-            echo "<td>";
-            foreach($resultado as $res){
-                echo $res["email"]."<br>";
-            }
-            echo "</td>";
-            echo '<td colspan="4">';
-            foreach($resultado as $res){
-                echo $res["telefone"]."<br>";
-            }
-            echo "</td>";
-            echo "<td>";
-            foreach($resultado as $res){
-                echo '<a href="index.php?id='.$res["id"].'">Editar</a>'." ".'<a href="index.php?id='.$res["id"].'">Apagar</a>'."<br>";
-            }
-            echo "</td>";
-            echo "</tr>";
             echo "</table>";
         }
     }

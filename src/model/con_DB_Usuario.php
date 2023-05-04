@@ -27,7 +27,7 @@ class Conexao_DB_Usuario{
         $resultado = $res->fetch(PDO::FETCH_ASSOC);
 
         if(count($resultado) > 0){
-            if($this->senha == $resultado["senha"]){
+            if(password_verify($this->senha, $resultado["senha"])){
                 session_start();
 
                 $_SESSION["name"] = $resultado["nome"];
@@ -46,7 +46,7 @@ class Conexao_DB_Usuario{
     public function Cadastrar($n, $e, $s){
         $this->nome = $n;
         $this->email = $e;
-        $this->senha = $s;
+        $this->senha = password_hash($s, PASSWORD_DEFAULT);
 
         $res = $this->pdo->prepare("INSERT INTO usuario(nome, email, senha) VALUES (:n, :e, :s)");
         $res->bindValue(":n", $this->nome);
