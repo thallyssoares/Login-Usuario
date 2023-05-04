@@ -44,7 +44,7 @@ require_once "src/model/con_DB_Cliente.php";
                 echo "</td>";
                 echo "<td>";
                 foreach($resultado as $res){
-                    echo '<a href="index.php?id='.$res["id"].'">Editar</a>'." ".'<a href="index.php?id='.$res["id"].'">Apagar</a>'."<br>";
+                    echo '<a href="index.php?id_up='.$res["id"].'">Editar</a>'." ".'<a href="index.php?id='.$res["id"].'">Apagar</a>'."<br>";
                 }
                 echo "</td>";
                 echo "</tr>";

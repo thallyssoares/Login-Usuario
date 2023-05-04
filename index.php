@@ -2,6 +2,7 @@
     require_once "src/controller/cliente/most_Cliente.php";
     require_once "src/controller/cliente/cad_Cliente.php";
     require_once "src/controller/cliente/apagar_Cliente.php";
+    require_once "src/controller/cliente/editar_Cliente.php";
 
     session_start();
     if(!$_SESSION["logado"]){
@@ -23,19 +24,33 @@
         <h1>Painel Administrativo</h1>
     </header>
     <main>
-        <div class="cadCliente">     
+        <div class="cadCliente">  
+            <h2>Cadastrar Clientes</h2>   
+            <?php 
+                if(isset($_GET["id_up"])){
+                    $edit = new Editar_Cliente;
+                    $resultado = $edit->buscarDadosCliente($_GET["id_up"]);
+                }
+            ?>
             <form action="" method="post">
                 <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="idNome"><br>
+                <input type="text" name="<?php if(isset($_GET['id_up'])){
+                    echo "nomeAtualizar";} else{ echo "nome";} ?>" id="idNome" value="<?php if(isset($_GET['id_up'])){echo $resultado["nome"];}
+                ?>"><br>
 
                 <label for="email">Email</label>
-                <input type="email" name="email" id="idEmail"><br>
+                <input type="email" name="email" id="idEmail" value="<?php if(isset($_GET['id_up'])){echo $resultado["email"];} ?>"><br>
 
                 <label for="tel">Telefone</label>
-                <input type="text" name="tel" id="idTel"><br>
+                <input type="text" name="tel" id="idTel" value="<?php if(isset($_GET['id_up'])){echo $resultado["telefone"];}?>"><br>
 
-                <input type="submit" value="Cadastrar">
+                <input type="submit" value="<?php if(isset($_GET['id_up'])){echo "Atualizar";} else{echo"Cadastrar";} ?>">
             </form>
+            <?php 
+                if(!empty($_POST["nomeAtualizar"])){
+                    $edit->editar($_GET["id_up"], $_POST["nomeAtualizar"], $_POST["email"], $_POST["tel"]);
+                }
+            ?>
             <?php 
                 if(!empty($_POST["nome"])){
                     $db_cliente = new Cad_Cliente;
