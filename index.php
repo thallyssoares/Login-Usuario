@@ -1,9 +1,10 @@
 <?php 
     require_once "src/controller/cliente/most_Cliente.php";
-    require_once "src/controller/cliente/cad_Cliente.php";
     require_once "src/controller/cliente/apagar_Cliente.php";
     require_once "src/controller/cliente/editar_Cliente.php";
+    require_once "src/controller/validacao_cliente.php";
 
+    $val = new Validar_Clientes;
     session_start();
     if(!$_SESSION["logado"]){
         header("location:src/view/login.php");
@@ -47,14 +48,13 @@
                 <input type="submit" value="<?php if(isset($_GET['id_up'])){echo "Atualizar";} else{echo"Cadastrar";} ?>">
             </form>
             <?php 
-                if(!empty($_POST["nomeAtualizar"])){
-                    $edit->editar($_GET["id_up"], $_POST["nomeAtualizar"], $_POST["email"], $_POST["tel"]);
+                if(!empty($_POST["nomeAtualizar"])){ 
+                    $val->val_edit($_GET["id_up"], $_POST["nomeAtualizar"], $_POST["email"], $_POST["tel"]);
                 }
             ?>
             <?php 
                 if(!empty($_POST["nome"])){
-                    $db_cliente = new Cad_Cliente;
-                    $db_cliente->cadastrar($_POST["nome"], $_POST["email"], $_POST["tel"], $_SESSION["id"]);
+                    $val->val_cad($_POST["nome"], $_POST["email"], $_POST["tel"], $_SESSION["id"]);
                 }
                 
             ?>
