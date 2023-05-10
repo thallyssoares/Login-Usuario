@@ -17,10 +17,14 @@ class Conexao_DB_Usuario{
             
     }
     
+    public function get_PDO(){
+        return $this->pdo;    
+    }
+
     public function Login($n, $s){
         $this->nome = $n;
         $this->senha = $s;
-        $res = $this->pdo->prepare("SELECT * FROM usuario WHERE nome=:n");
+        $res = $this->pdo->prepare("SELECT * FROM usuario WHERE nome_usuario=:n");
         $res->bindValue(":n", $this->nome);
         $res->execute();
 
@@ -30,7 +34,7 @@ class Conexao_DB_Usuario{
             if(password_verify($this->senha, $resultado["senha"])){
                 session_start();
 
-                $_SESSION["name"] = $resultado["nome"];
+                $_SESSION["name"] = $resultado["nome_usuario"];
                 $_SESSION["id"] = $resultado["id"];
                 $_SESSION["logado"] = true;
 
@@ -48,7 +52,7 @@ class Conexao_DB_Usuario{
         $this->email = $e;
         $this->senha = password_hash($s, PASSWORD_DEFAULT);
 
-        $res = $this->pdo->prepare("INSERT INTO usuario(nome, email, senha) VALUES (:n, :e, :s)");
+        $res = $this->pdo->prepare("INSERT INTO usuario(nome_usuario, email, senha) VALUES (:n, :e, :s)");
         $res->bindValue(":n", $this->nome);
         $res->bindValue(":e", $this->email);
         $res->bindValue(":s", $this->senha);

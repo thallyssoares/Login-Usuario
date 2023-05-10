@@ -1,5 +1,6 @@
 <?php
     require_once("../model/con_DB_Usuario.php");
+    require_once "usuario/login_Usuario.php";
 
     class Validar{
         private $user;
@@ -27,7 +28,7 @@
             $this->senha = preg_replace('/[^[:alnum:]_]/', "", $s);
 
             $pdo = new PDO("mysql:host=localhost;dbname=loginuser", "root", "");
-            $res = $pdo->prepare("SELECT * FROM usuario WHERE nome=:n");
+            $res = $pdo->prepare("SELECT * FROM usuario WHERE nome_usuario=:n");
             $res->bindValue(":n", $this->user);
             $res->execute();
 
@@ -35,8 +36,8 @@
             if($arrayResult == false){
                 echo "<p>Usuario não encontrado. <strong>Tente Novamente</strong>.</p>";
             } else {
-                $l = new Conexao_DB_Usuario();
-                $l->Login($this->user, $this->senha);
+                $l = new Login();
+                $l->logar($this->user, $this->senha);
             }
         }
     }
