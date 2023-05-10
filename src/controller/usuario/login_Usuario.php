@@ -1,5 +1,5 @@
 <?php
-require_once "../../../src/model/con_DB_Usuario.php";
+require_once "../model/con_DB_Usuario.php";
 
     class Login extends Conexao_DB_Usuario{
         public $pdo;
