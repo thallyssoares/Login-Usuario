@@ -1,5 +1,5 @@
 <?php
-    require_once("../model/con_DB_Usuario.php");
+    require_once "usuario/cad_Usuario.php";
     require_once "usuario/login_Usuario.php";
 
     class Validar{
@@ -17,8 +17,8 @@
 
                 echo "<p>Dados digitados estão incorretos. <strong>Tente Novamente</strong>.</p>"; 
             } else {
-                $cad = new Conexao_DB_Usuario();
-                $cad->Cadastrar($this->user,$this->email,$this->senha);
+                $cad = new Cadastrar;
+                $cad->cadastro($this->user,$this->email,$this->senha);
             }
 
         }

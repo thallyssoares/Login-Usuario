@@ -1,5 +1,6 @@
 <?php 
     require_once "../controller/validacao.php";
+    
 ?>
 
 <!DOCTYPE html>
